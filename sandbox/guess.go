@@ -1,4 +1,4 @@
-// Guessing game - Challenge a user to guess a number from 1 to a specific number
+// Guessing game - Challenge a user to guess a number from 1 to 100
 
 package main
 
