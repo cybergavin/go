@@ -1,3 +1,6 @@
+/*
+For a user-provided height (number of rows), display a star pyramid/triangle
+*/
 package main
 
 import (
@@ -5,29 +8,38 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 )
 
 func main() {
+	// Accept user input and validate
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter an odd number from 1 to 25 : ")
+	fmt.Println("This program will display a star pyramid.")
+	fmt.Printf("\nHow many rows do you want in the pyramid? : ")
 	input, err := reader.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
 	}
 	input = strings.TrimSpace(input)
-	starNum, err := strconv.Atoi(input)
+	rowNum, err := strconv.Atoi(input)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if starNum < 1 || starNum > 25 || starNum%2 == 0 {
-		err := fmt.Sprintf("%v is NOT an odd number from 1 to 25", starNum)
+	if rowNum < 2 {
+		err := "You must have atleast 2 rows for a pyramid!"
 		log.Fatal(err)
 	}
-	fmt.Printf("\nHere's your %d-STAR pyramid!\n", starNum)
-	for starLine := 1; starLine <= starNum; starLine += 2 {
-		blankNum := (starNum - starLine) / 2
-		fmt.Printf("%v%v\n", strings.Repeat(" ", blankNum), strings.Repeat("*", starLine))
+	// Clear screen and display output
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+	fmt.Printf("%v\nHere's your %d-ROW STAR pyramid!\n%v\n", strings.Repeat("-", 50), rowNum, strings.Repeat("-", 50))
+	lastRowStars := 2*rowNum - 1
+	for starRow := 1; starRow <= rowNum; starRow++ {
+		rowStars := 2*starRow - 1
+		blankNum := (lastRowStars - rowStars) / 2
+		fmt.Printf("%v%v\n", strings.Repeat(" ", blankNum), strings.Repeat("*", rowStars))
 	}
 }
