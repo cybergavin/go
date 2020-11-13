@@ -1,3 +1,11 @@
+/*
+Author			:	cybergavin
+Creation Date	:	11th November 2020
+Description 	:	The socketTest program tests connectivity to a socket and returns "True" or "False" based on whether there is connectivity.
+					Input Parameters => (1) Protocol - tcp or udp
+										(2) Host String - <IP>:<port> or <FQDN>:<port>
+										(3) Timeout in seconds
+*/
 package main
 
 import (
@@ -9,9 +17,20 @@ import (
 )
 
 func main() {
+	const (
+		colorReset = "\033[0m"
+		colorRed   = "\033[31m"
+	)
 	arguments := os.Args
+	helpMessage := `
+	USAGE: socketTest <protocol> <host:port> <timeout in seconds>
+		   where, <protocol> = tcp|udp
+	EXAMPLE: socketTest tcp 10.1.1.1:443 5
+	REFERENCE: https://github.com/cybergavin/go/blob/master/sandbox/socketTest/main.go
+					
+	`
 	if len(arguments) != 4 {
-		fmt.Printf("ERROR : INVALID USAGE\n\nUSAGE: socketTest <protocol> <host:port> <timeout in seconds>\n\twhere, <protocol> = tcp|udp\n\nEXAMPLE: socketTest tcp 10.1.1.1:443 5\n")
+		fmt.Println(string(colorRed), helpMessage, string(colorReset))
 		return
 	}
 	protocol := string(arguments[1])
