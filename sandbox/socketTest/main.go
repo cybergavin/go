@@ -17,20 +17,15 @@ import (
 )
 
 func main() {
-	const (
-		colorReset = "\033[0m"
-		colorRed   = "\033[31m"
-	)
 	arguments := os.Args
 	helpMessage := `
 	USAGE: socketTest <protocol> <host:port> <timeout in seconds>
 		   where, <protocol> = tcp|udp
 	EXAMPLE: socketTest tcp 10.1.1.1:443 5
-	REFERENCE: https://github.com/cybergavin/go/blob/master/sandbox/socketTest/main.go
-					
+	REFERENCE: https://github.com/cybergavin/go/blob/master/sandbox/socketTest/main.go				
 	`
 	if len(arguments) != 4 {
-		fmt.Println(string(colorRed), helpMessage, string(colorReset))
+		fmt.Println(helpMessage)
 		return
 	}
 	protocol := string(arguments[1])
